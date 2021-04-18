@@ -21,7 +21,7 @@
 
 10.增加新檔案進去    : git commit -am "week1-hw1 ok"
 
-11.把檔案送到遠端的github ： git push origin week1-hw1
+11.把檔案送到遠端的github ： git origin week1-hw1
 
 12.前往 Github 點選 pull request
 
