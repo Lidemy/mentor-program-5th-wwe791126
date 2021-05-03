@@ -12,8 +12,7 @@ console.log(capitalize('hello'));
 */
 
 function capitalize(str) {           //以帶入nick為例
-    var arr = str.charCodeAt(0)     //取str第一字首 第一字母 n 為110
-    arr = str.split("")             //宣告arr = str.split = ["n" , "i" , "c" , "k"] 
+    var arr = str.split("")             //宣告arr = str.split = ["n" , "i" , "c" , "k"] 
     if (arr[0]>"a" && arr[0]<"z"){  //假設第一個字串在a~z之間
     arr[0] = arr[0].toUpperCase()   //第一個字串則變成大寫
     str = arr.join("")              //再把arr變大寫的字串加進去 str
