@@ -25,7 +25,7 @@ switch (commands) {
     updateBook(params, args[4])
     break
   default:
-    console.log('params：list、read,、delete,、create , update')
+    console.log('可執行指令：list、read,、delete,、create , update')
 }
 // 列出所有的書
 function listAllbook() {
@@ -33,6 +33,7 @@ function listAllbook() {
     if (err) {
       return console.log('抓取失敗', err)
     }
+
     let books
     try {
       books = JSON.parse(body)
@@ -49,6 +50,10 @@ function listAllbook() {
 // 讀取某 id
 function readBook(id) {
   request(`${API_ENDPOINT}/books/${id}`, (err, res, body) => {
+    if (res.statusCode === 404) {
+      return console.log(`沒有這本 ${id} 書籍`)
+    }
+
     if (err) {
       return console.log('讀取失敗', err)
     }
@@ -64,40 +69,47 @@ function readBook(id) {
 }
 // 刪除某id
 function deleteBook(id) {
-  request.delete(`${API_ENDPOINT}/books/${id}`, (err) => {
-    if (err) {
-      return console.log('刪除失敗', err)
+  request.delete(`${API_ENDPOINT}/books/${id}`, (err, res, body) => {
+    if (res.statusCode === 404) {
+      return console.log(`Not ${id} BookData , Please Check`)
     }
-    console.log('刪除成功')
+
+    if (res.statusCode >= 200 && res.statusCode < 300) {
+      console.log(`成功刪除 ${id} 的 BookData`)
+    }
   })
 }
 // 新增POST
-function createBook(bookname) {
+function createBook(name) {
   request.post({
     url: `${API_ENDPOINT}/books`,
     form: {
-      bookname
+      name
     }
   },
-  (err) => {
-    if (err) {
+  (err, res, body) => {
+    try {
+      console.log(`${name}新增成功`)
+    } catch (err) {
       return console.log('新增失敗', err)
     }
-    console.log('新增成功')
   })
 }
 // 新增update
-function updateBook(id, bookname) {
+function updateBook(id, name) {
   request.patch({
     url: `${API_ENDPOINT}/books/${id}`,
     form: {
-      bookname
+      name
     }
   },
-  (err) => {
+  (err, res, body) => {
     if (err) {
-      return console.log('變更失敗', err)
+      return console.log('error')
     }
-    console.log('變更成功')
+
+    if (res.statusCode === 404) {
+      return console.log(`找尋不到 ${id} 的書本資料！請確認有此書籍`)
+    }
   })
 }
