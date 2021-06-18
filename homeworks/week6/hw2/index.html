@@ -61,7 +61,8 @@
         .input-block__input input[type=text] {
             border: solid 1px #d0d0d0;
             font-size: 16px;
-            padding: 8px;
+            padding: 4px;
+            min-width: 280px;
         }
 
         .input-block__input label {
@@ -91,6 +92,14 @@
             text-align: center;
             padding: 24px 12px;
         }
+       
+        @media (max-width: 768px) {
+            .wrapper {
+                width: 90%;
+  }
+}
+
+  
     </style>
 </head>
 
@@ -111,7 +120,7 @@
                     暱稱
                 </div>
                 <div class="input-block__input">
-                    <input name="name" type="text" />
+                    <input name="yourname" type="text" placeholder="您的回答" />
                 </div>
             </div>
 
@@ -120,7 +129,7 @@
                     電子郵件
                 </div>
                 <div class="input-block__input">
-                    <input name="email" type="text" />
+                    <input name="email" type="text" placeholder="您的電子郵件" />
                 </div>
             </div>
 
@@ -129,7 +138,7 @@
                     手機號碼
                 </div>
                 <div class="input-block__input">
-                    <input name="phone" type="text" />
+                    <input name="phone" type="text" placeholder="您的手機號碼" />
                 </div>
             </div>
 
@@ -154,7 +163,7 @@
                     怎麼知道這個活動的？
                 </div>
                 <div class="input-block__input">
-                    <input name="referal" type="text" />
+                    <input name="referal" type="text" placeholder="您的回答" />
                 </div>
             </div>
 
@@ -166,7 +175,7 @@
                     對活動的一些建議
                 </div>
                 <div class="input-block__input">
-                    <input name="name" type="text" />
+                    <input name="yourname" type="text" placeholder="您的回答" />
                 </div>
             </div>
 
