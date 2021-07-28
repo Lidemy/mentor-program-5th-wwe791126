@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>Todo-List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" />
+
+  <style>
+    .wrapper {
+        max-width: 600px;
+        margin: 0 auto;
+        margin-top: 20px;
+        padding: 32px;
+        box-shadow: 0px 0px 20px rgb(199 197 197);
+        border-radius: 12px;
+    }
+
+    h1 {
+        font-size: 40px;
+        color: #d8711d;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .input-block {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .input-todo {
+        border-radius: 10px;
+        padding: 5px 35px;
+        border: 1px solid rgb(167, 166, 166);
+    }
+    
+    .btn-new {
+        border: 1px solid rgb(214, 214, 214);
+        outline: none;
+        background: transparent;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 5px;
+    }
+
+    .btn-new:after,
+    .btn-new:before {
+        content: " ";
+        background: rgb(238, 9, 9);
+        width: 20px;
+        height: 1px;
+        position: absolute;
+    }
+
+    .btn-new:before {
+        transform: translate(-50%, -50%);
+    }
+
+    .btn-new:after {
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    .btn-new:hover:after,
+    .btn-new:hover:before {
+        background: #3106f3;
+    }
+
+    .todo__underline {
+        width: 600px;
+        height: 2.5px;
+        background-color: rgb(193, 224, 204);
+        margin: 10px auto;
+    }
+
+    .todo {
+        display: flex;
+        align-items: center;
+        margin-top: 12px;
+        padding: 12px;
+    }
+
+    .todo:hover {
+        background: rgba(0,0,0,0.2);
+    }
+
+    .todo__title {
+        flex: 1;
+    }
+
+    .todo__check {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+    }
+
+    .todo.done .todo__title {
+        text-decoration: line-through;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1>Todo-List</h1>
+    <div class="input-block">
+      <input class="input-todo" type="text"  placeholder="點餐吧孩子們~" size ="35" />
+      <button class="btn-new"></button>
+    </div>
+    <div class="todos">
+    </div>
+    <div class="todo__underline"></div>
+  </div>
+  <script>
+      //點擊 +號 添加
+    document.querySelector('.btn-new').addEventListener('click', () => {
+      const value = document.querySelector('.input-todo').value;
+      if (!value) return
+      const div = document.createElement('div')
+      div.classList.add('todo')
+      div.innerHTML = `
+        <input class="todo__check" type="checkbox" />
+        <div class="todo__title">${escapeHtml(value)}</div>
+        <button class="btn-delete">Delete</button>
+      `
+      document.querySelector('.todos').appendChild(div)
+      document.querySelector('.input-todo').value = ''
+    })
+
+    // event delegation / proxy
+    document.querySelector('.todos').addEventListener('click', (event) => {
+      const { target } = event
+      // delete todo
+      if (target.classList.contains('btn-delete')) {
+        target.parentNode.remove()
+        return
+      }
+
+      // check/uncheck todo
+      if (target.classList.contains('todo__check')) {
+        if (target.checked) {
+          target.parentNode.classList.add('done')
+        } else {
+          target.parentNode.classList.remove('done')
+        }
+      }
+    })
+
+    function escapeHtml(unsafe) {
+      return unsafe
+           .replace(/&/g, "&amp;")
+           .replace(/</g, "&lt;")
+           .replace(/>/g, "&gt;")
+           .replace(/"/g, "&quot;")
+           .replace(/'/g, "&#039;");
+    }
+
+  </script>
+</body>
+</html>
